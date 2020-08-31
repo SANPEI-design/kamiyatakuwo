@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch:pug2html": "pug --basedir src/ src/pug/ --hierarchy -o dist/ -w -P",
+    "compile:pug2html": "pug --basedir src/ src/pug/ --hierarchy -o dist/ -P",
+    "watch:pug2html": "chokidar \"src/pug/\" --command \"npm run compile:pug2html\" --initial",
     "start:server": "browser-sync start -s dist -w src/*.html src/css/*.css src/js/*.js",
     "compile:css2cssprefix": "postcss dist/css/style.css -u autoprefixer -o dist/css/style.css",
     "compile:scss2css": "node-sass src/scss/style.scss --importer node_modules/node-sass-globbing/index.js dist/css/style.css --output-style expanded --source-map dist/css",
