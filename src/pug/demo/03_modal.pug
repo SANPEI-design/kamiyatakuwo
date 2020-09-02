@@ -4,37 +4,41 @@ block content
   section.l-page
     .answer
       h1.answer__title--miss
-        img(src="/img/text_miss.svg", alt="はずれ")
+        img.answer__title-image--miss(src="/img/text_miss.svg", alt="はずれ")
       ul.answer__list.card-list
-        li.card
-          p.card__number
-            | イ
-          h2.card__text
-            | つまづいたら何度だって
-            br
-            | 起きあがればいいんだよなあ
-        li.card.is-selected
-          p.card__number
-            | ロ
-          h2.card__text
-            | 毎日少しずつ
-            br
-            | それがなかなかできねんだなあ
-        li.card
-          p.card__number
-            | ハ
-          h2.card__text
-            | できない約束は
-            br
-            | しないことだな
-        li.card
-          p.card__number
-            | ニ
-          h2.card__text
-            |体験してはじめて
-            br
-            | 身につくんだなあ
-      .answer__button-area--2column
+        li.card-list__item
+          .card
+            p.card__number
+              | イ
+            h2.card__text
+              | つまづいたら何度だって
+              br
+              | 起きあがればいいんだよなあ
+        li.card-list__item
+          .card
+            p.card__number
+              | ロ
+            h2.card__text
+              | 毎日少しずつ
+              br
+              | それがなかなかできねんだなあ
+        li.card-list__item
+          .card.is-selected
+            p.card__number
+              | ハ
+            h2.card__text
+              | できない約束は
+              br
+              | しないことだな
+        li.card-list__item
+          .card
+            p.card__number
+              | ニ
+            h2.card__text
+              |体験してはじめて
+              br
+              | 身につくんだなあ
+      .answer__button-area.button-area--2column
         button.button(type="button")
           | 正解をみる
         button.button(type="button")
@@ -42,12 +46,14 @@ block content
   .modal
     .modal__content
       .answer-key
+        p.answer-key__title
+          | 正解
         p.answer-key__number
-          | イ
+          | ロ
         p.answer-key__text
           | 毎日少しずつ
           br
           | それがなかなかできねんだなあ
-        .answer-key__button-area
+        .answer-key__button-area.button-area
           button.button(type="button")
             | 次の問題

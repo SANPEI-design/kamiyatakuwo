@@ -1,0 +1,32 @@
+.button {
+  font-size: calcvw(18);
+  color: #22362C;
+  text-align: center;
+  width: 100%;
+  text-shadow: 0 1px 0 #B4C9BB;
+  background: url('/img/button.jpg') no-repeat center / cover;
+  padding-top: calcvw(15);
+  padding-bottom: calcvw(15);
+  border-radius: calcvw(8);
+  box-shadow: 0 calcvw(10) 0 #4A574E;
+}
+
+.button--large {
+  @extend .button;
+
+  font-size: calcvw(22);
+  padding-top: calcvw(12);
+  padding-bottom: calcvw(12);
+}
+
+.button-area {
+  display: grid;
+  padding-bottom: calcvw(10);
+}
+
+.button-area--2column {
+  @extend .button-area;
+
+  grid-template-columns: 1fr 1fr;
+  gap: calcvw(12);
+}

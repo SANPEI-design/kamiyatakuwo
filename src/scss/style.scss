@@ -1,3 +1,9 @@
-html {
-  font-size: 62.5%;
-}
+// リセットcss
+@import 'base/destyle';
+
+@import 'setting/*';
+@import 'tool/*';
+@import 'base/*';
+@import 'layout/*';
+@import 'modules/*';
+@import 'state/*';

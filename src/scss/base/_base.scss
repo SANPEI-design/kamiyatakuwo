@@ -1,0 +1,11 @@
+@import '../setting/_variable';
+@import '../tool/_mixin';
+
+body {
+  min-height: 100vh;
+  font-size: calcvw(15);
+  font-family: $font-jp;
+  line-height: 1.5;
+  background: url('/img/bg@2x.jpg') no-repeat center / cover;
+  color: $color-default;
+}

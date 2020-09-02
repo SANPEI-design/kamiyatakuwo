@@ -1,0 +1,22 @@
+.quiz {
+  padding-top: calcvw(60);
+}
+
+.quiz__number,
+.quiz__title {
+  text-align: center;
+}
+
+.quiz__number {
+  font-size: calcvw(20);
+  letter-spacing: calcvw(4);
+}
+
+.quiz__title {
+  margin-top: calcvw(32);
+  font-size: calcvw(18);
+}
+
+.quiz__list {
+  margin-top: calcvw(36);
+}
