@@ -16,3 +16,24 @@
   margin-left: calcvw(28);
   padding: calcvw(44) calcvw(20);
 }
+
+.modal__title,
+.modal__number,
+.modal__text {
+  text-align: center;
+}
+
+.modal__number {
+  margin-top: calcvw(4);
+  font-size: calcvw(40);
+}
+
+.modal__text {
+  margin-top: calcvw(16);
+  font-size: $font-size-large;
+  line-height: 1.8;
+}
+
+.modal__button-area {
+  margin-top: calcvw(40);
+}

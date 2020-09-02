@@ -8,33 +8,33 @@ block content
       ul.answer__list.card-list
         li.card-list__item
           .card
-            p.card__number
+            p.card__number.text-large
               | イ
-            h2.card__text
+            p.card__text
               | つまづいたら何度だって
               br
               | 起きあがればいいんだよなあ
         li.card-list__item
           .card
-            p.card__number
+            p.card__number.text-large
               | ロ
-            h2.card__text
+            p.card__text
               | 毎日少しずつ
               br
               | それがなかなかできねんだなあ
         li.card-list__item
           .card.is-selected
-            p.card__number
+            p.card__number.text-large
               | ハ
-            h2.card__text
+            p.card__text
               | できない約束は
               br
               | しないことだな
         li.card-list__item
           .card
-            p.card__number
+            p.card__number.text-large
               | ニ
-            h2.card__text
+            p.card__text
               |体験してはじめて
               br
               | 身につくんだなあ
@@ -45,15 +45,14 @@ block content
           | やり直す
   .modal
     .modal__content
-      .answer-key
-        p.answer-key__title
-          | 正解
-        p.answer-key__number
-          | ロ
-        p.answer-key__text
-          | 毎日少しずつ
-          br
-          | それがなかなかできねんだなあ
-        .answer-key__button-area.button-area
-          button.button(type="button")
-            | 次の問題
+      p.modal__title.text-large
+        | 正解
+      p.modal__number
+        | ロ
+      p.modal__text
+        | 毎日少しずつ
+        br
+        | それがなかなかできねんだなあ
+      .modal__button-area.button-area
+        button.button(type="button")
+          | 次の問題

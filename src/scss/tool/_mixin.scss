@@ -1,5 +1,4 @@
-@import '../setting/_variable';
-
+// vw計算
 @function calcvw($num) {
   @return ($num / $sp-width * 100vw);
 }

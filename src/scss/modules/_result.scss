@@ -1,7 +1,3 @@
-.result {
-  padding-top: calcvw(72);
-}
-
 .result-box {
   background: url('/img/logo.svg') no-repeat #fff left calcvw(20) bottom calcvw(24);
   background-size: calcvw(48);
@@ -48,16 +44,22 @@
   width: calcvw(264);
 }
 
+.result-box__correct-answer-rate-area {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  margin-top: auto;
+  margin-bottom: calcvw(72);
+}
+
 .result-box__text {
   font-size: calcvw(20);
   letter-spacing: calcvw(4);
-  margin-top: auto;
-  margin-bottom: calcvw(-36);
 }
 
 .result-box__correct-answer-rate {
-  margin-top: auto;
-  margin-bottom: calcvw(72);
+  margin-top: calcvw(-12);
   position: relative;
   width: 100%;
   text-align: center;

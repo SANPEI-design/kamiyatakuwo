@@ -1,12 +1,12 @@
 .button {
-  font-size: calcvw(18);
+  font-size: $font-size-large;
   color: #22362C;
   text-align: center;
   width: 100%;
   text-shadow: 0 1px 0 #B4C9BB;
   background: url('/img/button.jpg') no-repeat center / cover;
-  padding-top: calcvw(15);
-  padding-bottom: calcvw(15);
+  padding-top: calcvw(16);
+  padding-bottom: calcvw(14);
   border-radius: calcvw(8);
   box-shadow: 0 calcvw(10) 0 #4A574E;
 }
@@ -15,8 +15,8 @@
   @extend .button;
 
   font-size: calcvw(22);
-  padding-top: calcvw(12);
-  padding-bottom: calcvw(12);
+  padding-top: calcvw(13);
+  padding-bottom: calcvw(11);
 }
 
 .button-area {

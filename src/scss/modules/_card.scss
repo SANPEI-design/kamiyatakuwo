@@ -18,10 +18,6 @@
   @extend .card;
 }
 
-.card__number {
-  font-size: calcvw(20);
-}
-
 .card__text {
   letter-spacing: calcvw(.4);
 }

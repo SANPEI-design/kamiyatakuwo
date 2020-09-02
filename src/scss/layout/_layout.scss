@@ -1,4 +1,8 @@
 .l-page {
   margin-right: calcvw(33);
   margin-left: calcvw(33);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

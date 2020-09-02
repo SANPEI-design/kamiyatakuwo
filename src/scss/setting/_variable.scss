@@ -1,3 +1,5 @@
+@import '../tool/_mixin';
+
 // スマホカンプ幅
 $sp-width: 375;
 
@@ -8,3 +10,9 @@ $color-default: #222;
 
 // フォント
 $font-jp: ten-mincho-text, serif;
+
+
+// フォントサイズ
+$font-size-medium: calcvw(15);
+$font-size-large: calcvw(18);
+$font-size-x-large: calcvw(20);

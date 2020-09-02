@@ -1,6 +1,6 @@
 .answer__title {
   position: relative;
-  height: calcvw(160);
+  height: calcvw(120);
   text-align: center;
 
   &::before {
@@ -11,32 +11,27 @@
     bottom: 0;
     right: 0;
     left: 0;
+    margin: calcvw(-10) auto auto auto;
   }
 }
 
 .answer__title--correct {
   @extend .answer__title;
 
-  padding-top: calcvw(40);
-
   &::before {
     width: calcvw(108);
     height: calcvw(108);
     background: url('/img/icon_circle.svg') no-repeat center / contain;
-    margin: auto;
   }
 }
 
 .answer__title--miss {
   @extend .answer__title;
 
-  padding-top: calcvw(48);
-
   &::before {
     width: calcvw(110);
     height: calcvw(108);
     background: url('/img/icon_cross.svg') no-repeat center / contain;
-    margin: auto;
   }
 }
 
@@ -54,34 +49,9 @@
   @extend .answer__title-image;
 
   width: calcvw(209);
+  margin-top: 5px;
 }
 
 .answer__button-area {
   margin-top: calcvw(28);
-}
-
-
-// .answer-key
-.answer-key {
-  text-align: center;
-}
-
-.answer-key__title {
-  font-size: calcvw(20);
-  letter-spacing: calcvw(4);
-}
-
-.answer-key__number {
-  margin-top: calcvw(4);
-  font-size: calcvw(40);
-}
-
-.answer-key__text {
-  margin-top: calcvw(16);
-  font-size: calcvw(18);
-  line-height: 1.8;
-}
-
-.answer-key__button-area {
-  margin-top: calcvw(40);
 }
