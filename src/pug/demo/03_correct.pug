@@ -2,39 +2,39 @@ extends /_includes/_layout
 
 block content
   section.l-page
-    .answer
+    .answer.js-quiz
       h1.answer__title--correct
         img.answer__title-image--correct(src="/img/text_correct.svg", alt="あたり")
       ul.answer__list.card-list
         li.card-list__item
-          .card
-            p.card__number.text-large
+          .card.js-answer
+            p.card__number.text-large.js-answer-number
               | イ
-            p.card__text
+            p.card__text.js-answer-text
               | つまづいたら何度だって
               br
               | 起きあがればいいんだよなあ
         li.card-list__item
-          .card.is-selected
-            p.card__number.text-large
+          .card.js-answer.is-selected
+            p.card__number.text-large.js-answer-number
               | ロ
-            p.card__text
+            p.card__text.js-answer-text
               | 毎日少しずつ
               br
               | それがなかなかできねんだなあ
         li.card-list__item
-          .card
-            p.card__number.text-large
+          .card.js-answer
+            p.card__number.text-large.js-answer-number
               | ハ
-            p.card__text
+            p.card__text.js-answer-text
               | できない約束は
               br
               | しないことだな
         li.card-list__item
-          .card
-            p.card__number.text-large
+          .card.js-answer
+            p.card__number.text-large.js-answer-number
               | ニ
-            p.card__text
+            p.card__text.js-answer-text
               |体験してはじめて
               br
               | 身につくんだなあ
