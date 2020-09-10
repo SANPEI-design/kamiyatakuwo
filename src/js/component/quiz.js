@@ -16,43 +16,62 @@ class Quiz {
   bindEvent() {
     this.appendElement()
 
+    // 言葉の数
+    const kamiyaWordLength = array.kamiyaWordList.length
+    const othersWordLength = array.othersWordList.length
 
-    console.log(test2.question)
+    // 残りの言葉の数が両方とも3以下だと終了（＝「結果を見る」）
+    // 残りの言葉の数が片方0だと終了（＝「結果を見る」）
 
-    // 配列ランダム取得
-    const test3 = [
-      'aaa',
-      'bbb',
-      'ccc'
-    ]
-    console.log(test3[Math.floor(Math.random() * test3.length)])
+    // 残りの言葉の数が多い方が「ハズレの質問文」「ランダム関数の引数を3」
 
-
-
-    // const result = this.testfunc(test2.question)
-    // console.log(result)
-
-
-
-    const result = this.testfunc2(test2.kamiyatakuwo, 3)
+    // かみやたくをの言葉のランダム選択
+    const result = this.selectRandom(array.kamiyaWordList, 3)
     console.log(result)
-    console.log(test2.kamiyatakuwo)
-  }
 
-  testfunc(array) {
-    const ttt = array[Math.floor(Math.random() * array.length)]
-    return ttt
+    // それ以外の言葉のランダム選択
+    const result2 = this.selectRandom(array.othersWordList, 1)
+    console.log(result2)
+
+    // かみやたくをの言葉とそれ以外の言葉をシャッフルした配列を作る（キーも作る）
+    const arraytest = {}
+    result.forEach(value => {
+      const number = result.indexOf(value)
+      arraytest[`hazure${number}`] = value
+    })
+    result2.forEach(value => {
+      arraytest['atari'] = value
+    })
+
+    // シャッフルした配列
+    const shuffle = this.shuffle(arraytest)
+    console.log(shuffle)
+
+
+
+
+
+    // DOMにテキストをつっこんでいく
   }
 
   // ランダムに要素を取得する関数（元の配列も削除される）
-  testfunc2(array, num) {
-    let newArray = []
+  selectRandom(array, num) {
+    const newArray = []
 
     while(newArray.length < num && array.length > 0) {
-      const random = Math.floor(Math.random() * array.length)
-      newArray.push(array[random])
-      array.splice(random, 1)
+      const randomElement = Math.floor(Math.random() * array.length)
+      newArray.push(array[randomElement])
+      array.splice(randomElement, 1)
     }
+
+    return newArray
+  }
+
+  // シャッフルする関数
+  shuffle(array) {
+    const object = Object.entries(array)
+    const result = this.selectRandom(object, object.length)
+    const newArray = Object.fromEntries(result)
 
     return newArray
   }
@@ -72,35 +91,12 @@ class Quiz {
   }
 }
 
-const test = [
-  {
-    question: 'かみやたくをの言葉を選びなさい',
-    answers: {
-      イ: 'aaa',
-      ロ: 'bbb',
-      ハ: 'ccc',
-      ニ: 'ddd'
-    },
-    answerKey: 'ロ'
-  },
-  {
-    question: 'かみやたくをの言葉を選びなさい',
-    answers: {
-      イ: 'zzz',
-      ロ: 'xxx',
-      ハ: 'vvv',
-      ニ: 'nnn'
-    },
-    answerKey: 'ハ'
-  },
-]
-
-const test2 = {
+const array = {
   question: [
     'かみやたくをの言葉を選びなさい',
     'かみやたくを以外の言葉を選びなさい'
   ],
-  kamiyatakuwo: [
+  kamiyaWordList: [
     'kamiyaaaa',
     'kamiyabbb',
     'kamiyaccc',
@@ -109,7 +105,7 @@ const test2 = {
     'kamiyafff',
     'kamiyaggg',
   ],
-  other: [
+  othersWordList: [
     'otheraaa',
     'otherbbb',
     'otherccc',
