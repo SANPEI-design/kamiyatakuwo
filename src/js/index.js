@@ -20,6 +20,16 @@ if(QUIZ_DOMS.length > 0) {
   QUIZ_DOMS.forEach(dom => {
     new Quiz(dom)
   })
+
+  // 【！】クリックできるかどうか判定必要
+  const ANSWER_DOMS = document.querySelectorAll('.js-answer')
+  if(ANSWER_DOMS.length > 0) {
+    ANSWER_DOMS.forEach(dom => {
+      dom.addEventListener('click', e => {
+        console.log('click', e)
+      })
+    })
+  }
 }
 
 
