@@ -92,8 +92,8 @@ class Quiz {
       fragment.appendChild(this.number)
       fragment.appendChild(this.text)
 
-      this.number.textContent = numberList[index]
-      this.text.textContent = answerList[index]
+      this.number.innerText = numberList[index]
+      this.text.innerText = answerList[index]
 
       dom.appendChild(fragment)
     })

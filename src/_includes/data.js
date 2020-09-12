@@ -10,13 +10,13 @@ const quizData = {
     'ニ'
   ],
   kamiyaWordList: [
-    'kamiyaaaa',
-    'kamiyabbb',
-    'kamiyaccc',
-    'kamiyaddd',
-    'kamiyaeee',
-    'kamiyafff',
-    'kamiyaggg',
+    'kamiya\naaa',
+    'kamiya\nbbb',
+    'kamiya\nccc',
+    'kamiya\nddd',
+    'kamiya\neee',
+    'kamiya\nfff',
+    'kamiya\nggg',
   ],
   othersWordList: [
     'otheraaa',
