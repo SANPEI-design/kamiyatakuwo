@@ -1,5 +1,5 @@
-// import Answer from './component/answer'
 import Quiz from './component/quiz'
+import Choice from './component/choice'
 import Modal from './component/modal'
 
 // 必要な機能
@@ -21,12 +21,13 @@ if(QUIZ_DOMS.length > 0) {
     new Quiz(dom)
   })
 
-  // 【！】クリックできるかどうか判定必要
-  const ANSWER_DOMS = document.querySelectorAll('.js-answer')
-  if(ANSWER_DOMS.length > 0) {
-    ANSWER_DOMS.forEach(dom => {
+  // 解答のクリックイベント
+  const CHOICE_DOMS = document.querySelectorAll('.js-choice-answer')
+  if(CHOICE_DOMS.length > 0) {
+    CHOICE_DOMS.forEach(dom => {
       dom.addEventListener('click', e => {
-        console.log('click', e)
+        e.preventDefault()
+        new Choice(dom)
       })
     })
   }
@@ -34,9 +35,9 @@ if(QUIZ_DOMS.length > 0) {
 
 
 // クイズ
-// const ANSWER_DOMS = document.querySelectorAll('.js-answer')
-// if(ANSWER_DOMS.length > 0) {
-//   ANSWER_DOMS.forEach(dom => {
+// const CHOICE_DOMS = document.querySelectorAll('.js-answer')
+// if(CHOICE_DOMS.length > 0) {
+//   CHOICE_DOMS.forEach(dom => {
 //     new Answer(dom)
 //   })
 // }

@@ -27,24 +27,22 @@
   <body>
     <section class="l-page">
       <div class="answer js-quiz">
-        <h1 class="answer__title--correct"><img class="answer__title-image--correct" src="/img/text_correct.svg" alt="あたり"></h1>
+        <h1 class="js-answer-title"></h1>
         <ul class="answer__list card-list">
           <li class="card-list__item">
-            <div class="card js-answer"></div>
+            <div class="card js-choice"></div>
           </li>
           <li class="card-list__item">
-            <div class="card js-answer"></div>
+            <div class="card js-choice"></div>
           </li>
           <li class="card-list__item">
-            <div class="card js-answer"></div>
+            <div class="card js-choice"></div>
           </li>
           <li class="card-list__item">
-            <div class="card js-answer"></div>
+            <div class="card js-choice"></div>
           </li>
         </ul>
-        <div class="answer__button-area button-area">
-          <button class="button" type="button">次の問題</button>
-        </div>
+        <div class="answer__button-area js-answer-button-area"></div>
       </div>
     </section>
     <script type="module" src="/js/main.js" defer></script>

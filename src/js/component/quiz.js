@@ -7,16 +7,20 @@ class Quiz {
   }
 
   setParameters(targetDOM) {
-    this.answerDOMList = targetDOM.querySelectorAll('.js-answer')
+    this.answerDOMList = targetDOM.querySelectorAll('.js-choice')
+    this.answerTitle = targetDOM.querySelector('.js-answer-title')
+    this.answerButtonArea = targetDOM.querySelector('.js-answer-button-area')
   }
 
   bindEvent() {
-    this.appendElement()
+    // this.appendElement()
     this.storeSession()
+    this.searchSession()
   }
 
   // クイズデータ処理
   init() {
+
     // 言葉の数
     const kamiyaWordLength = quizData.kamiyaWordList.length
     const othersWordLength = quizData.othersWordList.length
@@ -71,38 +75,133 @@ class Quiz {
   }
 
   // DOMを生成
-  createElement() {
-    this.number = document.createElement('p')
-    this.number.classList.add('card__number', 'text-large')
-    this.text = document.createElement('p')
-    this.text.classList.add('card__text')
+  createElement(...element) {
+    this.fragment = document.createDocumentFragment()
+    this.button = document.createElement('button')
+    this.button.setAttribute('type', 'button')
+    this.button.classList.add('button')
+
+    // 解答リスト
+    if(element.includes('answer')) {
+      this.number = document.createElement('p')
+      this.number.classList.add('card__number', 'text-large', 'js-number')
+      this.text = document.createElement('p')
+      this.text.classList.add('card__text', 'js-text')  
+      this.fragment.appendChild(this.number)
+      this.fragment.appendChild(this.text)
+    }
+
+    // 結果
+    if(element.includes('answerTitle')) {
+      this.answerTitleImg = document.createElement('img')
+      this.fragment.appendChild(this.button)
+
+      // あたり
+      if(element.includes('correct')) {
+        // タイトル
+        this.answerTitle.classList.add('answer__title--correct')
+        this.answerTitleImg.setAttribute('src', '/img/text_correct.svg')
+        this.answerTitleImg.setAttribute('alt', 'あたり')
+        this.answerTitleImg.classList.add('answer__title-image--correct')
+
+        // ボタン
+        this.answerButtonArea.classList.add('button-area')
+        this.button.innerText = '次の問題'
+      }
+
+      // はずれ
+      else if(element.includes('miss')) {
+        // タイトル
+        this.answerTitle.classList.add('answer__title--miss')
+        this.answerTitleImg.setAttribute('src', '/img/text_miss.svg')
+        this.answerTitleImg.setAttribute('alt', 'はずれ')
+        this.answerTitleImg.classList.add('answer__title-image--miss')
+
+        // ボタン
+        this.answerButtonArea.classList.add('button-area--2column')
+        const buttonClone = this.button.cloneNode()
+
+        // モーダル展開ボタン
+        this.button.innerText = '正解をみる'
+        this.button.classList.add('js-modal')
+
+        // やり直しボタン
+        buttonClone.innerText = 'やり直す'        
+        this.fragment.appendChild(buttonClone)
+      }
+    }
   }
 
   // DOMを追加
   appendElement() {
-    const shuffledData = this.init()
+    let shuffledData
+
+    // 初回はnull
+    const [askedList, choice] = this.searchSession()
+    console.log(askedList, choice)
+
+    // ストレージにすでにデータがある（＝結果画面以降）場合上書き
+    if(askedList !== null) {
+      shuffledData = askedList
+      console.log('すでにある', shuffledData)
+    } else {
+      shuffledData = this.init()
+      console.log('まだない', shuffledData)
+    }
+
     console.log(shuffledData)
     const answerList = Object.values(shuffledData)
     const numberList = quizData['numberList']
 
+    // クイズデータから解答リスト生成
     this.answerDOMList.forEach((dom, index) => {
-      this.createElement()
+      this.createElement('answer')
       
-      const fragment = document.createDocumentFragment()
-      fragment.appendChild(this.number)
-      fragment.appendChild(this.text)
-
       this.number.innerText = numberList[index]
       this.text.innerText = answerList[index]
 
-      dom.appendChild(fragment)
+      dom.appendChild(this.fragment)
+
+      // ストレージに解答データがある（＝結果画面以降）場合、その解答にマーク
+      if(choice === null) return false
+      if(choice === answerList[index]) {
+        dom.classList.add('is-selected')
+      }
     })
+
+    // 正誤判定
+    if(choice !== null) {
+      if(choice === shuffledData['correct']) {
+        this.createElement('answerTitle', 'correct')
+        console.log('あたり')
+      } else {
+        this.createElement('answerTitle', 'miss')
+        console.log('はずれ')
+      }
+
+      // 正誤DOM追加
+      this.answerTitle.appendChild(this.answerTitleImg)
+      this.answerButtonArea.appendChild(this.fragment)
+    }
+
+    return shuffledData
   }
 
   // セッションストレージに保存
   storeSession() {
-    const shuffledData = this.init()
-    sessionStorage.setItem('answerList', JSON.stringify(shuffledData))
+    const shuffledData = this.appendElement()
+    sessionStorage.setItem('askedList', JSON.stringify(shuffledData))
+  }
+
+  // セッションストレージを検索
+  searchSession() {
+    const askedList = JSON.parse(sessionStorage.getItem('askedList'))
+    console.log(askedList)
+
+    const choice = sessionStorage.getItem('choice')
+    console.log(choice)
+
+    return [askedList, choice]
   }
 }
 
