@@ -1,3 +1,5 @@
+import Session from "./session"
+
 class Choice {
   constructor(targetDOM) {
     this.trigger = targetDOM
@@ -5,17 +7,12 @@ class Choice {
   }
 
   bindEvent() {
-    this.storeSession()
-    location.pathname = '/demo/03_answer.html'
-  }
-
-  init() {
-  }
-
-  // セッションストレージに保存
-  storeSession() {
-    const choiceText = this.trigger.querySelector('.js-text').innerText
-    sessionStorage.setItem('choice', choiceText)
+    this.trigger.addEventListener('click', e => {
+      e.preventDefault()
+      const choiceText = this.trigger.querySelector('.js-text').innerText
+      Session.storeSession('choice', choiceText)
+      location.pathname = '/demo/03_answer.html'      
+    })
   }
 }
 
