@@ -3,6 +3,7 @@ import Quiz from './quiz'
 class Answer extends Quiz {
   extractData() {
     super.extractData()
+    this.shuffledDataLength = this.quizExtractor.shuffledDataLength
     this.choice = this.quizExtractor.choice
   }
 
@@ -15,7 +16,7 @@ class Answer extends Quiz {
   bindEvent() {
     super.bindEvent()
 
-    if(this.choice === this.shuffledData['correct']) {
+    if(this.choice === this.shuffledData[this.index]['correct']) {
       this.createElement('answerTitle', 'correct')
       console.log('あたり')
     } else {
@@ -50,8 +51,16 @@ class Answer extends Quiz {
 
         // ボタン
         this.answerButtonArea.classList.add('button-area')
-        this.button.innerText = '次の問題'
-        this.fragment.appendChild(this.button)
+        this.button.classList.add('js-next')
+
+        // 「次の問題」ボタンと「結果をみる」ボタンの分岐
+        if(this.count < this.shuffledDataLength) {
+          this.button.innerText = '次の問題'
+          } else {
+          this.button.innerText = '結果をみる'
+          }
+
+        this.fragment.appendChild(this.button)        
       }
 
       // はずれ

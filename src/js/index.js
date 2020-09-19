@@ -3,6 +3,7 @@ import Choice from './component/choice'
 import Answer from './component/answer'
 import Modal from './component/modal'
 import Redo from './component/redo'
+import Next from './component/next'
 
 // 必要な機能
 /*
@@ -50,6 +51,16 @@ const MODAL_DOMS = document.querySelectorAll('.js-modal')
 if(MODAL_DOMS.length > 0) {
   MODAL_DOMS.forEach(dom => {
     new Modal(dom)
+
+    // モーダル内の次の問題
+    dom.addEventListener('click', () => {
+      const NEXT_DOM = document.querySelector('.js-next')
+      if(NEXT_DOM !== null) {
+        new Next(NEXT_DOM)
+      }
+    }, {
+      once: true
+    })
   })
 }
 
@@ -59,5 +70,13 @@ const REDO_DOMS = document.querySelectorAll('.js-redo')
 if(REDO_DOMS.length > 0) {
   REDO_DOMS.forEach(dom => {
     new Redo(dom)
+  })
+}
+
+// 次の問題
+const NEXT_DOMS = document.querySelectorAll('.js-next')
+if(NEXT_DOMS.length > 0) {
+  NEXT_DOMS.forEach(dom => {
+    new Next(dom)
   })
 }

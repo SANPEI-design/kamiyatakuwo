@@ -16,12 +16,12 @@ class QuizExtractor {
     return this._shuffledData
   }
 
-  get numberList() {
-    return this._numberList
+  get shuffledDataLength() {
+    return this._shuffledData.length
   }
 
-  get answerList() {
-    return this._answerList
+  get numberList() {
+    return this._numberList
   }
 
   get choice() {
@@ -30,11 +30,8 @@ class QuizExtractor {
 
   // クイズデータから配列を生成
   fromData() {
-    const [askedList, choice] = Session.searchSession()
-    console.log(askedList, choice)
-
-    this._askedList = askedList
-    this._choice = choice
+    this._askedList = Session.searchSession('askedList')
+    this._choice = Session.searchSession('choice')
 
     // 初回にinit()でデータを作る
     if(this._askedList !== null) {
@@ -50,38 +47,85 @@ class QuizExtractor {
     this._numberList = quizData['numberList']
   }
 
+  // リスト数の比較
+  compareLength(listA, listB) {
+    this.largeList
+    this.smallList
+
+    if(listA.length > listB.length === true) {
+      this.largeList = listA
+      this.smallList = listB
+    } else {
+      this.largeList = listB
+      this.smallList = listA
+    }
+  }
+
   // クイズデータ処理
   init() {
+    // 残りの言葉の数が多い方が「ハズレの質問文」「ランダム関数の引数を3」
+    this.compareLength(quizData.kamiyaWordList, quizData.othersWordList)
 
-    // 言葉の数
-    const kamiyaWordLength = quizData.kamiyaWordList.length
-    const othersWordLength = quizData.othersWordList.length
+    let i = 0
+    let largeLength = this.largeList.length
+    let smallLength = this.smallList.length
+
+    const allAnswerList = []
 
     // 残りの言葉の数が両方とも3以下だと終了（＝「結果を見る」）
-    // 残りの言葉の数が片方0だと終了（＝「結果を見る」）
 
-    // 残りの言葉の数が多い方が「ハズレの質問文」「ランダム関数の引数を3」
+    // 多いリストが3以上のときに繰り返す
+    while(largeLength >= 3) {
+      largeLength = this.largeList.length
+      smallLength = this.smallList.length
+      console.log('while', largeLength, this.largeList)
 
-    // かみやたくをの言葉のランダム選択
-    const randomKamiyaWordList = this.selectRandom(quizData.kamiyaWordList, 3)
-    console.log(randomKamiyaWordList)
+      // 少ないリストが0だと終了
+      if(smallLength === 0) break
 
-    // それ以外の言葉のランダム選択
-    const randomOthersWordList = this.selectRandom(quizData.othersWordList, 1)
-    console.log(randomOthersWordList)
+      const missList = this.selectRandom(this.largeList, 3)
+      const correctList = this.selectRandom(this.smallList, 1)
+      this.compareLength(this.largeList, this.smallList)
 
-    // かみやたくをの言葉とそれ以外の言葉をシャッフルした配列を作る（キーも作る）
-    const randomWordList = {}
-    randomKamiyaWordList.forEach(value => {
-      const number = randomKamiyaWordList.indexOf(value)
-      randomWordList[`miss${number}`] = value
-    })
-    randomOthersWordList.forEach(value => {
-      randomWordList['correct'] = value
-    })
+      const randomWordList = {}
 
-    // シャッフルした配列
-    return this.shuffle(randomWordList)
+      missList.forEach((value, index) => {
+        randomWordList[`miss${index}`] = value
+      })
+
+      correctList.forEach((value) => {
+        randomWordList[`correct`] = value
+      })
+
+      allAnswerList.push(this.shuffle(randomWordList))
+      
+      // 【！使ってないのであとで削除】カウント
+      i++
+
+      console.log(`配列比較は${i}回実施`)  
+    }
+    
+    console.log(allAnswerList)
+
+    return allAnswerList
+
+
+    // ランダムなワードを作る
+    // const missList = this.selectRandom(this.largeList, 3)
+    // const correctList = this.selectRandom(this.smallList, 1)
+
+    // const randomWordmap = new Map()
+
+    // missList.map((value, index) => {
+    //   randomWordmap.set(`miss${index}`, value)
+    // })
+
+    // correctList.map((value) => {
+    //   randomWordmap.set(`correct`, value)
+    // })
+
+    // // シャッフルした配列
+    // return this.shuffle(Object.fromEntries(randomWordmap))
   }
 
   // ランダムに要素を取得（元の配列も削除される）
@@ -98,12 +142,12 @@ class QuizExtractor {
   }
 
   // シャッフル
-  shuffle(array) {
-    const object = Object.entries(array)
-    const shuffledObject = this.selectRandom(object, object.length)
-    const newArray = Object.fromEntries(shuffledObject)
+  shuffle(object) {
+    const target = Object.entries(object)
+    const shuffledArray = this.selectRandom(target, target.length)
+    const newObject = Object.fromEntries(shuffledArray)
 
-    return newArray
+    return newObject
   }
 }
 

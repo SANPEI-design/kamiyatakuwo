@@ -1,11 +1,32 @@
-import quizData from '../../_includes/data'
+import QuizExtractor from './quizextractor'
 import Session from './session'
 
 class Modal {
   constructor(targetDOM) {
+    this.extractData()
     this.trigger = targetDOM
     this.body = document.querySelector('body')
+    this.setIndex()
     this.bindEvent()
+  }
+
+  extractData() {
+    this.quizExtractor = new QuizExtractor()
+
+    this.shuffledData = this.quizExtractor.shuffledData
+    this.shuffledDataLength = this.quizExtractor.shuffledDataLength
+    this.numberList = this.quizExtractor.numberList
+  }
+
+  setIndex() {
+    this.count = Session.searchSession('count')
+
+    if(this.count === null) {
+      Session.storeSession('count', 1)
+      this.count = Session.searchSession('count')
+    }
+
+    this.index = this.count - 1
   }
 
   bindEvent() {
@@ -27,9 +48,6 @@ class Modal {
   }
 
   createElement() {
-    const [askedList] = Session.searchSession()
-    const numberList = quizData['numberList']
-
     this.modal = document.createElement('div')
     this.modal.classList.add('modal')
     this.modalContent = document.createElement('div')
@@ -44,14 +62,22 @@ class Modal {
     this.modalButtonArea = document.createElement('div')
     this.modalButtonArea.classList.add('modal__button-area', 'button-area')
     this.modalButton = document.createElement('button')
-    this.modalButton.classList.add('button')
     this.modalButton.setAttribute('type', 'button')
-    this.modalButton.innerText = '次の問題'
+    this.modalButton.classList.add('button')
+    this.modalButton.classList.add('js-next')
 
-    Object.keys(askedList).forEach((value, index) => {
+    // 「次の問題」ボタンと「結果をみる」ボタンの分岐
+    if(this.count < this.shuffledDataLength) {
+      this.modalButton.innerText = '次の問題'
+        } else {
+      this.modalButton.innerText = '結果をみる'
+      }
+
+    // 正解表示
+    Object.keys(this.shuffledData[this.index]).forEach((value, index) => {
       if(value === 'correct') {
-        const answerKeyNumber = numberList[index]
-        const answerKeyText = askedList[value]
+        const answerKeyNumber = this.numberList[index]
+        const answerKeyText = this.shuffledData[this.index][value]
         this.modalNumber.innerText = answerKeyNumber
         this.modalText.innerText = answerKeyText
       }
