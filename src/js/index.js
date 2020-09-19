@@ -4,6 +4,7 @@ import Answer from './component/answer'
 import Modal from './component/modal'
 import Redo from './component/redo'
 import Next from './component/next'
+import Result from './component/result'
 
 // 必要な機能
 /*
@@ -52,7 +53,7 @@ if(MODAL_DOMS.length > 0) {
   MODAL_DOMS.forEach(dom => {
     new Modal(dom)
 
-    // モーダル内の次の問題
+    // ページネーション
     dom.addEventListener('click', () => {
       const NEXT_DOM = document.querySelector('.js-next')
       if(NEXT_DOM !== null) {
@@ -73,10 +74,20 @@ if(REDO_DOMS.length > 0) {
   })
 }
 
-// 次の問題
+
+// ページネーション
 const NEXT_DOMS = document.querySelectorAll('.js-next')
 if(NEXT_DOMS.length > 0) {
   NEXT_DOMS.forEach(dom => {
     new Next(dom)
+  })
+}
+
+
+// 結果
+const RESULT_DOMS = document.querySelectorAll('.js-result')
+if(RESULT_DOMS.length > 0) {
+  RESULT_DOMS.forEach(dom => {
+    new Result(dom)
   })
 }

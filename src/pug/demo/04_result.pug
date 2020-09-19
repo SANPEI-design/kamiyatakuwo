@@ -2,16 +2,14 @@ extends /_includes/_layout
 
 block content
   section.l-page
-    .result
+    .result.js-result
       .result-box
-        h1.result__title
-          img.result__title-image--best(src="/img/text_best.svg", alt="がんばれ")
+        h1.result__title.js-result-title
         .result-box__correct-answer-rate-area
           p.result-box__correct-answer-rate-title.text-large
             | 正解率
           p.result-box__correct-answer-rate
-            span.result-box__correct-answer-rate-number
-              | 50
+            span.result-box__correct-answer-rate-number.js-result-rate
             span.result-box__correct-answer-rate-percent
               | ％
       .result__button-area.button-area--2column
