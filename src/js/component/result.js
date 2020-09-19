@@ -29,14 +29,22 @@ class Result {
     this.fragment = document.createDocumentFragment()
 
     if(element.includes('result')) {
-      // 結果タイトル
+      const missLength = Session.searchSession('miss')
+      this.resultRateNumber = Math.round((this.shuffledDataLength - missLength) / this.shuffledDataLength * 100)
+      
       this.resultImg = document.createElement('img')
-      this.resultImg.classList.add('result__title-image--best')
-      this.resultImg.setAttribute('src', '/img/text_best.svg')
-      this.resultImg.setAttribute('alt', 'がんばれ')
-
-      // 正誤率
-      this.resultRateNumber = '50'
+      // 正答率50%未満の場合
+      if(this.resultRateNumber < 50) {
+        this.resultImg.classList.add('result__title-image--best')
+        this.resultImg.setAttribute('src', '/img/text_best.svg')
+        this.resultImg.setAttribute('alt', 'がんばれ')  
+      }
+      // 正答率50%以上の場合
+      else {
+        this.resultImg.classList.add('result__title-image--great')
+        this.resultImg.setAttribute('src', '/img/text_great.svg')
+        this.resultImg.setAttribute('alt', 'すごい')  
+      }
     }
   }
 

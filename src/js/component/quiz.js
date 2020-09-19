@@ -5,7 +5,7 @@ class Quiz {
   constructor(targetDOM) {  
     this.extractData()  
     this.setParameters(targetDOM)
-    this.setIndex()
+    this.setSession()
     this.bindEvent()
   }
 
@@ -14,24 +14,28 @@ class Quiz {
 
     this.shuffledData = this.quizExtractor.shuffledData
     this.numberList = this.quizExtractor.numberList
-    // このデータはいらないかも
-    // this.answerList = this.quizExtractor.answerList
-
   }
 
   setParameters(targetDOM) {
     this.answerDOMList = targetDOM.querySelectorAll('.js-choice')
   }
 
-  setIndex() {
+  setSession() {
     this.count = Session.searchSession('count')
 
+    // 問題数と配列のindexを揃える
     if(this.count === null) {
       Session.storeSession('count', 1)
       this.count = Session.searchSession('count')
     }
 
     this.index = this.count - 1
+
+    // missカウント用セッションをセット
+    this.miss = Session.searchSession('miss')
+    if(this.miss === null) {
+      Session.storeSession('miss', 0)
+    }
   }
 
   bindEvent() {

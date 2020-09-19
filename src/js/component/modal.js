@@ -64,7 +64,7 @@ class Modal {
     this.modalButton = document.createElement('button')
     this.modalButton.setAttribute('type', 'button')
     this.modalButton.classList.add('button')
-    this.modalButton.classList.add('js-next')
+    this.modalButton.classList.add('js-next', 'js-miss')
 
     // 「次の問題」ボタンと「結果をみる」ボタンの分岐
     if(this.count < this.shuffledDataLength) {

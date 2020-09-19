@@ -5,6 +5,7 @@ import Modal from './component/modal'
 import Redo from './component/redo'
 import Next from './component/next'
 import Result from './component/result'
+import Miss from './component/miss'
 
 // 必要な機能
 /*
@@ -53,11 +54,18 @@ if(MODAL_DOMS.length > 0) {
   MODAL_DOMS.forEach(dom => {
     new Modal(dom)
 
-    // ページネーション
     dom.addEventListener('click', () => {
       const NEXT_DOM = document.querySelector('.js-next')
+      const MISS_DOM = document.querySelector('.js-miss')
+
+      // ページネーション
       if(NEXT_DOM !== null) {
         new Next(NEXT_DOM)
+      }
+
+      // ミスのトリガー
+      if(MISS_DOM !== null) {
+        new Miss(MISS_DOM)
       }
     }, {
       once: true
