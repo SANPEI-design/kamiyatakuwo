@@ -10,22 +10,16 @@ const quizData = {
     'ニ'
   ],
   kamiyaWordList: [
-    'kamiya\naaa',
-    'kamiya\nbbb',
-    'kamiya\nccc',
-    'kamiya\nddd',
-    'kamiya\neee',
-    'kamiya\nfff',
-    'kamiya\nggg',
+    'つまづいたら何度だって\n起きあがればいいんだよなあ',
+    '誰だって最初は\nちっぽけな芽なんだよなあ',
+    'ゆきさきは心が決める\nあとから体がついてくる',
+    'しあわせじゃないなんて\nゆえる時はまだしあわせなんだよなあ',
   ],
   othersWordList: [
-    'otheraaa',
-    'otherbbb',
-    'otherccc',
-    'otherddd',
-    'othereee',
-    'otherfff',
-    'otherggg',
+    '毎日少しずつ\nそれがなかなかできねんだなあ',
+    'できない約束は\nしないことだな',
+    '体験してはじめて\n身につくんだなあ',
+    'まける人のおかげで\n勝てるんだよなあ',
   ]
 }
 
