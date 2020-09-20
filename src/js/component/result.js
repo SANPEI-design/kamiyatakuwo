@@ -9,9 +9,8 @@ class Result {
   }
 
   extractData() {
-    this.quizExtractor = new QuizExtractor()
-
-    this.shuffledDataLength = this.quizExtractor.shuffledDataLength
+    this.allAnswerList = Session.searchSession('allAnswerList')
+    this.allAnswerListLength = this.allAnswerList.length
   }
 
   setParameters(targetDOM) {
@@ -30,7 +29,7 @@ class Result {
 
     if(element.includes('result')) {
       const missLength = Session.searchSession('miss')
-      this.resultRateNumber = Math.round((this.shuffledDataLength - missLength) / this.shuffledDataLength * 100)
+      this.resultRateNumber = Math.round((this.allAnswerListLength - missLength) / this.allAnswerListLength * 100)
       
       this.resultImg = document.createElement('img')
       // 正答率50%未満の場合

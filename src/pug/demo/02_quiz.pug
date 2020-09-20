@@ -2,11 +2,11 @@ extends /_includes/_layout
 
 block content
   section.l-page
-    .quiz.js-quiz
-      p.quiz__number.text-large
-        | 問1
-      h1.quiz__title
-        | かみやたくをの言葉は？
+    .quiz.js-quiz.js-question
+      p.quiz__number.text-large.js-question-number
+        //- | 問1
+      h1.quiz__title.js-question-title
+        //- | かみやたくをの言葉は？
       ul.quiz__list.card-list
         li.card-list__item
           a.card--link.js-choice.js-choice-answer(href="#")

@@ -9,9 +9,8 @@ class Next {
   }
 
   extractData() {
-    this.quizExtractor = new QuizExtractor()
-
-    this.shuffledDataLength = this.quizExtractor.shuffledDataLength
+    this.allAnswerList = Session.searchSession('allAnswerList')
+    this.allAnswerListLength = this.allAnswerList.length
   }
   
   bindEvent() {
@@ -19,7 +18,7 @@ class Next {
     this.trigger.addEventListener('click', e => {
       e.preventDefault()
 
-      if(this.count < this.shuffledDataLength) {
+      if(this.count < this.allAnswerListLength) {
         location.pathname = '/demo/02_quiz.html'
         this.increaseCount()
         Session.storeSession('count', this.count)

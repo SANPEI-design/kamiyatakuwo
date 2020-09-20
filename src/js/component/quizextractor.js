@@ -9,42 +9,34 @@ class QuizExtractor {
 
   bindEvent() {
     this.fromData()
-    Session.storeSession('askedList', this.shuffledData)
+    Session.storeSession('allAnswerList', this.allAnswerList)
+    Session.storeSession('questionList', this.questionList)
   }
 
-  get shuffledData() {
-    return this._shuffledData
+  static numberList() {
+    return quizData['numberList']
   }
 
-  get shuffledDataLength() {
-    return this._shuffledData.length
+  get allAnswerList() {
+    return this._allAnswerList
   }
 
-  get numberList() {
-    return this._numberList
-  }
-
-  get choice() {
-    return this._choice
+  get questionList() {
+    return this._questionList
   }
 
   // クイズデータから配列を生成
   fromData() {
-    this._askedList = Session.searchSession('askedList')
-    this._choice = Session.searchSession('choice')
+    this._allAnswerList = Session.searchSession('allAnswerList')
+    this._questionList = Session.searchSession('questionList')
 
-    // 初回にinit()でデータを作る
-    if(this._askedList !== null) {
-      this._shuffledData = this._askedList
-      console.log('すでにある', this._shuffledData)
+    // 初回に init() で加工データを作る
+    if(this._allAnswerList === null) {
+      this.init()
+      console.log('まだない', this._allAnswerList)
     } else {
-      this._shuffledData = this.init()
-      console.log('まだない', this._shuffledData)
+      console.log('すでにある', this._allAnswerList)
     }
-
-    console.log(this._shuffledData)
-    this._answerList = Object.values(this._shuffledData)
-    this._numberList = quizData['numberList']
   }
 
   // リスト数の比較
@@ -55,9 +47,30 @@ class QuizExtractor {
     if(listA.length > listB.length === true) {
       this.largeList = listA
       this.smallList = listB
+
+      console.log(this.largeList, listA)
     } else {
       this.largeList = listB
       this.smallList = listA
+
+      console.log(this.largeList, listB)
+    }
+  }
+
+  createQuestionList() {
+    // 小さい（＝正解出力予定）リストと神谷ワードリストで配列を作る
+    const array = this.smallList.concat(Object.values(quizData.kamiyaWordList))
+
+    // 作成した配列の重複を削除
+    const set = new Set(array)
+    const setArray = Array.from(set)
+
+    if(array.length === setArray.length) {
+      console.log('小さい（＝正解）リストはその他リスト', this.smallList)
+      this._questionList.push(quizData.question[1])
+    } else {
+      console.log('小さい（＝正解）リストはかみやたくをリスト', this.smallList)
+      this._questionList.push(quizData.question[0])
     }
   }
 
@@ -70,7 +83,8 @@ class QuizExtractor {
     let largeLength = this.largeList.length
     let smallLength = this.smallList.length
 
-    const allAnswerList = []
+    this._allAnswerList = []
+    this._questionList = []
 
     // 残りの言葉の数が両方とも3以下だと終了（＝「結果を見る」）
 
@@ -86,6 +100,7 @@ class QuizExtractor {
       const missList = this.selectRandom(this.largeList, 3)
       const correctList = this.selectRandom(this.smallList, 1)
       this.compareLength(this.largeList, this.smallList)
+      this.createQuestionList()
 
       const randomWordList = {}
 
@@ -97,35 +112,15 @@ class QuizExtractor {
         randomWordList[`correct`] = value
       })
 
-      allAnswerList.push(this.shuffle(randomWordList))
+      this._allAnswerList.push(this.shuffle(randomWordList))
       
       // 【！使ってないのであとで削除】カウント
       i++
 
       console.log(`配列比較は${i}回実施`)  
     }
-    
-    console.log(allAnswerList)
 
-    return allAnswerList
-
-
-    // ランダムなワードを作る
-    // const missList = this.selectRandom(this.largeList, 3)
-    // const correctList = this.selectRandom(this.smallList, 1)
-
-    // const randomWordmap = new Map()
-
-    // missList.map((value, index) => {
-    //   randomWordmap.set(`miss${index}`, value)
-    // })
-
-    // correctList.map((value) => {
-    //   randomWordmap.set(`correct`, value)
-    // })
-
-    // // シャッフルした配列
-    // return this.shuffle(Object.fromEntries(randomWordmap))
+    console.log(this._questionList)
   }
 
   // ランダムに要素を取得（元の配列も削除される）

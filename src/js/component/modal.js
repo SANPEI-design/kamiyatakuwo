@@ -11,11 +11,8 @@ class Modal {
   }
 
   extractData() {
-    this.quizExtractor = new QuizExtractor()
-
-    this.shuffledData = this.quizExtractor.shuffledData
-    this.shuffledDataLength = this.quizExtractor.shuffledDataLength
-    this.numberList = this.quizExtractor.numberList
+    this.allAnswerList = Session.searchSession('allAnswerList')
+    this.allAnswerListLength = this.allAnswerList.length
   }
 
   setIndex() {
@@ -67,17 +64,17 @@ class Modal {
     this.modalButton.classList.add('js-next', 'js-miss')
 
     // 「次の問題」ボタンと「結果をみる」ボタンの分岐
-    if(this.count < this.shuffledDataLength) {
+    if(this.count < this.allAnswerListLength) {
       this.modalButton.innerText = '次の問題'
         } else {
       this.modalButton.innerText = '結果をみる'
       }
 
     // 正解表示
-    Object.keys(this.shuffledData[this.index]).forEach((value, index) => {
+    Object.keys(this.allAnswerList[this.index]).forEach((value, index) => {
       if(value === 'correct') {
-        const answerKeyNumber = this.numberList[index]
-        const answerKeyText = this.shuffledData[this.index][value]
+        const answerKeyNumber = QuizExtractor.numberList()[index]
+        const answerKeyText = this.allAnswerList[this.index][value]
         this.modalNumber.innerText = answerKeyNumber
         this.modalText.innerText = answerKeyText
       }

@@ -10,10 +10,8 @@ class Quiz {
   }
 
   extractData() {
-    this.quizExtractor = new QuizExtractor()
-
-    this.shuffledData = this.quizExtractor.shuffledData
-    this.numberList = this.quizExtractor.numberList
+    this.allAnswerList = Session.searchSession('allAnswerList')
+    this.numberList = QuizExtractor.numberList()
   }
 
   setParameters(targetDOM) {
@@ -57,7 +55,7 @@ class Quiz {
       this.fragment.appendChild(this.text)
     }
 
-    this.answerList = Object.values(this.shuffledData[this.index])
+    this.answerList = Object.values(this.allAnswerList[this.index])
 
     // クイズDOM（枠）の複製＆コンテンツ生成
     this.answerFragmentList = {}

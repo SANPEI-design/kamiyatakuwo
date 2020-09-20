@@ -1,10 +1,12 @@
 import Quiz from './quiz'
+import Session from './session'
 
 class Answer extends Quiz {
   extractData() {
     super.extractData()
-    this.shuffledDataLength = this.quizExtractor.shuffledDataLength
-    this.choice = this.quizExtractor.choice
+    
+    this.allAnswerListLength = this.allAnswerList.length
+    this.choice = Session.searchSession('choice')
   }
 
   setParameters(targetDOM) {
@@ -16,7 +18,7 @@ class Answer extends Quiz {
   bindEvent() {
     super.bindEvent()
 
-    if(this.choice === this.shuffledData[this.index]['correct']) {
+    if(this.choice === this.allAnswerList[this.index]['correct']) {
       this.createElement('answerTitle', 'correct')
       console.log('あたり')
     } else {
@@ -54,11 +56,11 @@ class Answer extends Quiz {
         this.button.classList.add('js-next')
 
         // 「次の問題」ボタンと「結果をみる」ボタンの分岐
-        if(this.count < this.shuffledDataLength) {
+        if(this.count < this.allAnswerListLength) {
           this.button.innerText = '次の問題'
-          } else {
+        } else {
           this.button.innerText = '結果をみる'
-          }
+        }
 
         this.fragment.appendChild(this.button)        
       }

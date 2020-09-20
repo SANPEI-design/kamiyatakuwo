@@ -1,4 +1,6 @@
+import Start from './component/start'
 import Quiz from './component/quiz'
+import Question from './component/question'
 import Choice from './component/choice'
 import Answer from './component/answer'
 import Modal from './component/modal'
@@ -7,26 +9,24 @@ import Next from './component/next'
 import Result from './component/result'
 import Miss from './component/miss'
 
-// 必要な機能
-/*
-クイズを生成する機能
-  【済】DOM
-  配列
-  関数
-回答判定機能
-戻る機能
-正解率を計算する機能
-結果を生成する機能
-【済】モーダル機能
- */
 
+// 開始
+const START_DOM = document.querySelector('.js-start')
+if(START_DOM !== null) {
+  new Start(START_DOM)
+}
 
-// クイズ画面
+// クイズ選択
 const QUIZ_DOMS = document.querySelectorAll('.js-quiz')
 if(QUIZ_DOMS.length > 0) {
   QUIZ_DOMS.forEach(dom => {
     new Quiz(dom)
   })
+}
+
+const QUESTION_DOM = document.querySelector('.js-question')
+if(QUESTION_DOM !== null) {
+  new Question(QUESTION_DOM)
 }
 
 
