@@ -3,97 +3,109 @@ import Session from './session'
 
 class Modal {
   constructor(targetDOM) {
-    this.extractData()
     this.trigger = targetDOM
-    this.body = document.querySelector('body')
-    this.setIndex()
+    this.extractData()
     this.bindEvent()
   }
 
   extractData() {
     this.allAnswerList = Session.searchSession('allAnswerList')
-    this.allAnswerListLength = this.allAnswerList.length
+    this.count = Session.searchSession('count')
+    this.numberList = QuizExtractor.numberList()
   }
 
-  setIndex() {
-    this.count = Session.searchSession('count')
-
-    if(this.count === null) {
-      Session.storeSession('count', 1)
-      this.count = Session.searchSession('count')
-    }
-
-    this.index = this.count - 1
+  get index() {
+    return this.count - 1
   }
 
   bindEvent() {
-    this.createElement()
+    let modal, modalContent
+    [modal, modalContent] = this.createElement(modal, modalContent)
 
     this.trigger.addEventListener('click', e => {
       e.preventDefault()
-      this.appendElement()
+      this.appendElement(modal)
     })
 
-    this.modal.addEventListener('click', e => {
+    modal.addEventListener('click', e => {
       e.preventDefault()
-      this.removeElement()
+      this.removeElement(modal)
     })
 
-    this.modalContent.addEventListener('click', e => {
+    modalContent.addEventListener('click', e => {
       e.stopPropagation()
     })
   }
 
-  createElement() {
-    this.modal = document.createElement('div')
-    this.modal.classList.add('modal')
-    this.modalContent = document.createElement('div')
-    this.modalContent.classList.add('modal__content')
-    this.modalTitle = document.createElement('p')
-    this.modalTitle.classList.add('modal__title', 'text-large')
-    this.modalTitle.innerText = '正解'
-    this.modalNumber = document.createElement('p')
-    this.modalNumber.classList.add('modal__number')
-    this.modalText = document.createElement('p')
-    this.modalText.classList.add('modal__text')
-    this.modalButtonArea = document.createElement('div')
-    this.modalButtonArea.classList.add('modal__button-area', 'button-area')
-    this.modalButton = document.createElement('button')
-    this.modalButton.setAttribute('type', 'button')
-    this.modalButton.classList.add('button')
-    this.modalButton.classList.add('js-next', 'js-miss')
+  createElement(modal, modalContent) {
+    let modalTitle, modalNumber, modalText, modalButtonArea, modalButton
+
+    // モーダル全体
+    modal = document.createElement('div')
+    modal.classList.add('modal')
+
+    // モーダルコンテンツ
+    modalContent = document.createElement('div')
+    modalContent.classList.add('modal__content')
+
+    // モーダルタイトル
+    modalTitle = document.createElement('p')
+    modalTitle.classList.add('modal__title', 'text-large')
+    modalTitle.innerText = '正解'
+
+    // 正解ナンバー枠
+    modalNumber = document.createElement('p')
+    modalNumber.classList.add('modal__number')
+
+    // 正解枠
+    modalText = document.createElement('p')
+    modalText.classList.add('modal__text')
+
+    // モーダルボタンエリア
+    modalButtonArea = document.createElement('div')
+    modalButtonArea.classList.add('modal__button-area', 'button-area')
+
+    // モーダルボタン枠
+    modalButton = document.createElement('button')
+    modalButton.setAttribute('type', 'button')
+    modalButton.classList.add('button')
+    modalButton.classList.add('js-next', 'js-miss')
 
     // 「次の問題」ボタンと「結果をみる」ボタンの分岐
-    if(this.count < this.allAnswerListLength) {
-      this.modalButton.innerText = '次の問題'
-        } else {
-      this.modalButton.innerText = '結果をみる'
-      }
+    if(this.count < this.allAnswerList.length) {
+      modalButton.innerText = '次の問題'
+    } else {
+      modalButton.innerText = '結果をみる'
+    }
 
     // 正解表示
     Object.keys(this.allAnswerList[this.index]).forEach((value, index) => {
       if(value === 'correct') {
-        const answerKeyNumber = QuizExtractor.numberList()[index]
+        const answerKeyNumber = this.numberList[index]
         const answerKeyText = this.allAnswerList[this.index][value]
-        this.modalNumber.innerText = answerKeyNumber
-        this.modalText.innerText = answerKeyText
+
+        modalNumber.innerText = answerKeyNumber
+        modalText.innerText = answerKeyText
       }
     })
 
-    this.modal.appendChild(this.modalContent)
-    this.modalContent.appendChild(this.modalTitle)
-    this.modalContent.appendChild(this.modalNumber)
-    this.modalContent.appendChild(this.modalText)
-    this.modalContent.appendChild(this.modalButtonArea)
-    this.modalButtonArea.appendChild(this.modalButton)
+    modal.appendChild(modalContent)
+    modalContent.appendChild(modalTitle)
+    modalContent.appendChild(modalNumber)
+    modalContent.appendChild(modalText)
+    modalContent.appendChild(modalButtonArea)
+    modalButtonArea.appendChild(modalButton)
+
+    return [modal, modalContent]
   }
 
-  appendElement() {
-    this.body.insertBefore(this.modal, this.body.firstChild)    
+  appendElement(modal) {
+    const body = document.body
+    body.insertBefore(modal, body.firstChild)    
   }
 
-  removeElement() {
-    this.modal.remove()
+  removeElement(modal) {
+    modal.remove()
   }
 }
 

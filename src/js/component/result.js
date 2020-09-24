@@ -1,16 +1,10 @@
-import QuizExtractor from './quizextractor'
 import Session from './session'
 
 class Result {
-  constructor(targetDOM) {  
-    this.extractData()  
+  constructor(targetDOM) {
     this.setParameters(targetDOM)
+    this.extractData()
     this.bindEvent()
-  }
-
-  extractData() {
-    this.allAnswerList = Session.searchSession('allAnswerList')
-    this.allAnswerListLength = this.allAnswerList.length
   }
 
   setParameters(targetDOM) {
@@ -18,39 +12,43 @@ class Result {
     this.resultRate = targetDOM.querySelector('.js-result-rate')
   }
 
+  extractData() {
+    this.allAnswerList = Session.searchSession('allAnswerList')
+    this.miss = Session.searchSession('miss')
+  }
+
   bindEvent() {
     this.createElement('result')
-    this.appendElement()
   }
 
   // 結果DOMを生成
   createElement(...element) {
-    this.fragment = document.createDocumentFragment()
-
     if(element.includes('result')) {
-      const missLength = Session.searchSession('miss')
-      this.resultRateNumber = Math.round((this.allAnswerListLength - missLength) / this.allAnswerListLength * 100)
+      // 正答率計算
+      const resultRateNumber = Math.round((this.allAnswerList.length - this.miss) / this.allAnswerList.length * 100)
       
-      this.resultImg = document.createElement('img')
+      const resultImg = document.createElement('img')
+
       // 正答率50%未満の場合
-      if(this.resultRateNumber < 50) {
-        this.resultImg.classList.add('result__title-image--best')
-        this.resultImg.setAttribute('src', '/img/text_best.svg')
-        this.resultImg.setAttribute('alt', 'がんばれ')  
+      if(resultRateNumber < 50) {
+        resultImg.classList.add('result__title-image--best')
+        resultImg.setAttribute('src', '/img/text_best.svg')
+        resultImg.setAttribute('alt', 'がんばれ')  
       }
       // 正答率50%以上の場合
       else {
-        this.resultImg.classList.add('result__title-image--great')
-        this.resultImg.setAttribute('src', '/img/text_great.svg')
-        this.resultImg.setAttribute('alt', 'すごい')  
+        resultImg.classList.add('result__title-image--great')
+        resultImg.setAttribute('src', '/img/text_great.svg')
+        resultImg.setAttribute('alt', 'すごい')  
       }
+      this.appendElement(resultRateNumber, resultImg)
     }
   }
 
   // 結果DOMを追加
-  appendElement() {
-    this.resultTitle.appendChild(this.resultImg)
-    this.resultRate.innerText = this.resultRateNumber
+  appendElement(resultRateNumber, resultImg) {
+    this.resultTitle.appendChild(resultImg)
+    this.resultRate.innerText = resultRateNumber
   }
 }
 

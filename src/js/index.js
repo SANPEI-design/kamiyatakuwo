@@ -16,14 +16,15 @@ if(START_DOM !== null) {
   new Start(START_DOM)
 }
 
-// クイズ選択
-const QUIZ_DOMS = document.querySelectorAll('.js-quiz')
-if(QUIZ_DOMS.length > 0) {
-  QUIZ_DOMS.forEach(dom => {
-    new Quiz(dom)
-  })
+
+// クイズ選択肢
+const QUIZ_DOM = document.querySelector('.js-quiz')
+if(QUIZ_DOM !== null) {
+  new Quiz(QUIZ_DOM)
 }
 
+
+// 質問文
 const QUESTION_DOM = document.querySelector('.js-question')
 if(QUESTION_DOM !== null) {
   new Question(QUESTION_DOM)
@@ -40,62 +41,52 @@ if(CHOICE_DOMS.length > 0) {
 
 
 // 回答画面
-const ANSWER_DOMS = document.querySelectorAll('.js-answer')
-if(ANSWER_DOMS.length > 0) {
-  ANSWER_DOMS.forEach(dom => {
-    new Answer(dom)
-  })
+const ANSWER_DOM = document.querySelector('.js-answer')
+if(ANSWER_DOM !== null) {
+  new Answer(ANSWER_DOM)
 }
 
 
 // モーダル
-const MODAL_DOMS = document.querySelectorAll('.js-modal')
-if(MODAL_DOMS.length > 0) {
-  MODAL_DOMS.forEach(dom => {
-    new Modal(dom)
+const MODAL_DOM = document.querySelector('.js-modal')
+if(MODAL_DOM !== null) {
+  new Modal(MODAL_DOM)
 
-    dom.addEventListener('click', () => {
-      const NEXT_DOM = document.querySelector('.js-next')
-      const MISS_DOM = document.querySelector('.js-miss')
+  MODAL_DOM.addEventListener('click', () => {
+    const NEXT_DOM = document.querySelector('.js-next')
+    const MISS_DOM = document.querySelector('.js-miss')
 
-      // ページネーション
-      if(NEXT_DOM !== null) {
-        new Next(NEXT_DOM)
-      }
+    // ページネーション
+    if(NEXT_DOM !== null) {
+      new Next(NEXT_DOM)
+    }
 
-      // ミスのトリガー
-      if(MISS_DOM !== null) {
-        new Miss(MISS_DOM)
-      }
-    }, {
-      once: true
-    })
+    // ミスのトリガー
+    if(MISS_DOM !== null) {
+      new Miss(MISS_DOM)
+    }
+  }, {
+    once: true
   })
 }
 
 
 // やり直し
-const REDO_DOMS = document.querySelectorAll('.js-redo')
-if(REDO_DOMS.length > 0) {
-  REDO_DOMS.forEach(dom => {
-    new Redo(dom)
-  })
+const REDO_DOM = document.querySelector('.js-redo')
+if(REDO_DOM !== null) {
+  new Redo(REDO_DOM)
 }
 
 
 // ページネーション
-const NEXT_DOMS = document.querySelectorAll('.js-next')
-if(NEXT_DOMS.length > 0) {
-  NEXT_DOMS.forEach(dom => {
-    new Next(dom)
-  })
+const NEXT_DOM = document.querySelector('.js-next')
+if(NEXT_DOM !== null) {
+  new Next(NEXT_DOM)
 }
 
 
 // 結果
-const RESULT_DOMS = document.querySelectorAll('.js-result')
-if(RESULT_DOMS.length > 0) {
-  RESULT_DOMS.forEach(dom => {
-    new Result(dom)
-  })
+const RESULT_DOM = document.querySelector('.js-result')
+if(RESULT_DOM !== null) {
+  new Result(RESULT_DOM)
 }

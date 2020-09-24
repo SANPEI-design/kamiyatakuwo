@@ -8,119 +8,100 @@ class QuizExtractor {
   }
 
   bindEvent() {
-    this.fromData()
-    Session.storeSession('allAnswerList', this.allAnswerList)
-    Session.storeSession('questionList', this.questionList)
+    const [allAnswerList, questionList] = this.init()
+    Session.storeSession('allAnswerList', allAnswerList)
+    Session.storeSession('questionList', questionList)
   }
 
   static numberList() {
     return quizData['numberList']
   }
 
-  get allAnswerList() {
-    return this._allAnswerList
-  }
-
-  get questionList() {
-    return this._questionList
-  }
-
   // クイズデータから配列を生成
-  fromData() {
-    this._allAnswerList = Session.searchSession('allAnswerList')
-    this._questionList = Session.searchSession('questionList')
-
-    // 初回に init() で加工データを作る
-    if(this._allAnswerList === null) {
-      this.init()
-      console.log('まだない', this._allAnswerList)
-    } else {
-      console.log('すでにある', this._allAnswerList)
-    }
-  }
-
-  // リスト数の比較
-  compareLength(listA, listB) {
-    this.largeList
-    this.smallList
-
-    if(listA.length > listB.length === true) {
-      this.largeList = listA
-      this.smallList = listB
-
-      console.log(this.largeList, listA)
-    } else {
-      this.largeList = listB
-      this.smallList = listA
-
-      console.log(this.largeList, listB)
-    }
-  }
-
-  createQuestionList() {
-    // 小さい（＝正解出力予定）リストと神谷ワードリストで配列を作る
-    const array = this.smallList.concat(Object.values(quizData.kamiyaWordList))
-
-    // 作成した配列の重複を削除
-    const set = new Set(array)
-    const setArray = Array.from(set)
-
-    if(array.length === setArray.length) {
-      console.log('小さい（＝正解）リストはその他リスト', this.smallList)
-      this._questionList.push(quizData.question[1])
-    } else {
-      console.log('小さい（＝正解）リストはかみやたくをリスト', this.smallList)
-      this._questionList.push(quizData.question[0])
-    }
-  }
-
-  // クイズデータ処理
   init() {
-    // 残りの言葉の数が多い方が「ハズレの質問文」「ランダム関数の引数を3」
-    this.compareLength(quizData.kamiyaWordList, quizData.othersWordList)
+    const randomWordList = {}
+    const allAnswerList = []
+    const questionList = []
+    let largeLength, smallLength
 
-    let i = 0
-    let largeLength = this.largeList.length
-    let smallLength = this.smallList.length
+    // リスト数を比較して大小を格納
+    let [largeList, smallList] = this.compareLength(quizData.kamiyaWordList, quizData.othersWordList)
 
-    this._allAnswerList = []
-    this._questionList = []
+    largeLength = largeList.length
+    smallLength = smallList.length
 
-    // 残りの言葉の数が両方とも3以下だと終了（＝「結果を見る」）
+    // 小リスト数が1以上のときに繰り返す
+    while(smallLength >= 1) {
+      let question
+      let missList, correctList
 
-    // 多いリストが3以上のときに繰り返す
-    while(largeLength >= 3) {
-      largeLength = this.largeList.length
-      smallLength = this.smallList.length
-      console.log('while', largeLength, this.largeList)
+      // リスト数を比較して大小を格納
+      [largeList, smallList] = this.compareLength(largeList, smallList)
 
-      // 少ないリストが0だと終了
-      if(smallLength === 0) break
+      largeLength = largeList.length
+      smallLength = smallList.length
 
-      const missList = this.selectRandom(this.largeList, 3)
-      const correctList = this.selectRandom(this.smallList, 1)
-      this.compareLength(this.largeList, this.smallList)
-      this.createQuestionList()
+      // 比較後、大リスト数が3未満で終了
+      if(largeLength < 3) break
 
-      const randomWordList = {}
+      question = this.selectQuestion(smallList)
+      questionList.push(question)
 
+      // リストからランダムに配列作成
+      missList = this.selectRandom(largeList, 3)
+      correctList = this.selectRandom(smallList, 1)
+
+      // 各配列からリスト（オブジェクト）生成
       missList.forEach((value, index) => {
         randomWordList[`miss${index}`] = value
       })
-
       correctList.forEach((value) => {
         randomWordList[`correct`] = value
       })
 
-      this._allAnswerList.push(this.shuffle(randomWordList))
-      
-      // 【！使ってないのであとで削除】カウント
-      i++
-
-      console.log(`配列比較は${i}回実施`)  
+      // シャッフルしたリストで配列（＝全クイズ）作成
+      allAnswerList.push(this.shuffle(randomWordList))  
     }
 
-    console.log(this._questionList)
+    return [allAnswerList, questionList]
+  }
+
+  // リスト数の比較
+  compareLength(a, b) {
+    let largeList, smallList
+
+    if(a.length > b.length === true) {
+      largeList = a
+      smallList = b
+    } else {
+      largeList = b
+      smallList = a
+    }
+    return [largeList, smallList]
+  }
+
+  // 質問文を選択
+  selectQuestion(smallList) {
+    let question
+
+    // 小（＝正解出力予定）リスト ＋ かみやリストの配列を作成
+    const array = smallList.concat(Object.values(quizData.kamiyaWordList))
+
+    // 作成した配列の重複を削除（＝ユニークリスト）
+    const set = new Set(array)
+    const setArray = Array.from(set)
+
+    // 小リスト ＋ かみやリストの数 ＝ ユニークリストの数なら、小リストは神谷リストではない
+    if(array.length === setArray.length) {
+      question = quizData.question[1]
+    }
+    
+    // 小リスト ＋ かみやリストの数 ≠ ユニークリストの数がなら、小リストは神谷リスト
+    else {
+      question = quizData.question[0]
+    }
+
+    return question
   }
 
   // ランダムに要素を取得（元の配列も削除される）

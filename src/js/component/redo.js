@@ -7,7 +7,7 @@ class Redo {
   bindEvent() {
     this.trigger.addEventListener('click', e => {
       e.preventDefault()
-      console.log('クリック')
+
       location.pathname = '/demo/02_quiz.html'
     })
   }
