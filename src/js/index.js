@@ -6,8 +6,9 @@ import Answer from './component/answer'
 import Modal from './component/modal'
 import Redo from './component/redo'
 import Next from './component/next'
-import Result from './component/result'
 import Miss from './component/miss'
+import Result from './component/result'
+import Clear from './component/clear'
 
 
 // 開始
@@ -89,4 +90,11 @@ if(NEXT_DOM !== null) {
 const RESULT_DOM = document.querySelector('.js-result')
 if(RESULT_DOM !== null) {
   new Result(RESULT_DOM)
+}
+
+
+// クリア
+const CLEAR_DOM = document.querySelector('.js-clear')
+if(CLEAR_DOM !== null) {
+  new Clear(CLEAR_DOM)
 }
