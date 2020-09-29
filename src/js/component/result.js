@@ -28,6 +28,7 @@ class Result {
       const resultRateNumber = Math.round((this.allAnswerList.length - this.miss) / this.allAnswerList.length * 100)
       
       const resultImg = document.createElement('img')
+      resultImg.classList.add('js-result-img')
 
       // 正答率50%未満の場合
       if(resultRateNumber < 50) {

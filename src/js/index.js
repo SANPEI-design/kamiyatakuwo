@@ -9,6 +9,7 @@ import Next from './component/next'
 import Miss from './component/miss'
 import Result from './component/result'
 import Clear from './component/clear'
+import Share from './component/share'
 
 
 // 開始
@@ -97,4 +98,11 @@ if(RESULT_DOM !== null) {
 const CLEAR_DOM = document.querySelector('.js-clear')
 if(CLEAR_DOM !== null) {
   new Clear(CLEAR_DOM)
+}
+
+
+// シェア
+const SHARE_DOM = document.querySelector('.js-share')
+if(SHARE_DOM !== null) {
+  new Share(SHARE_DOM)
 }
