@@ -4,16 +4,22 @@ html(lang="ja")
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
     meta(name="viewport", content="width=device-width, initial-scale=1")
-    meta(name="description", content="スーパーサラリーマン「かみやたくを」の名言にまつわるクイズを出題！あなたは何問解けるかな？")
-    meta(property="og:title", content="かみやたくを")
-    meta(property="og:type", content="website")
-    meta(property="og:url", content="★★★")
-    meta(property="og:image", content="★★★")
-    meta(property="og:site_name", content="かみやたくを")
-    meta(property="og:description", content="スーパーサラリーマン「かみやたくを」の名言にまつわるクイズを出題！あなたは何問解けるかな？")
-    meta(property="fb:app_id", content="★★★")
-    title かみやたくを
-    link(rel='stylesheet', href="/css/style.css")
+    meta(name="description", content="スーパーサラリーマン「かみやたくを」の名言を当てろ！あなたは何問解けるかな？")
+    meta(property="og:title", content="かみやたくを｜名言クイズ")
+    //- og:typeの分岐
+    if page === 'top'
+      meta(property="og:type", content="website")
+    else
+      meta(property="og:type", content="article")
+    meta(property="og:url", content="https://kamiyatakuwo.sanpei-design.com")
+    meta(property="og:image", content="https://kamiyatakuwo.sanpei-design.com/img/ogp.png")
+    meta(property="og:site_name", content="かみやたくを｜名言クイズ")
+    meta(property="og:description", content="スーパーサラリーマン「かみやたくを」の名言を当てろ！あなたは何問解けるかな？")
+    title かみやたくを｜名言クイズ
+    link(rel="stylesheet", href="/css/style.css")
+    link(rel="icon" href="/favicon.ico")
+    link(rel="apple-touch-icon" href="/apple-touch-icon.png")
+    //- webフォント
     .
       <script>
         (function(d) {
@@ -25,6 +31,9 @@ html(lang="ja")
           h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
         })(document);
       </script>
-  body
-    block content
-    script(type="module" src="/js/main.js" defer)
+  if page === undefined
+    body
+  else
+    body(data-page=`${page}`)
+  block content
+  script(type="module" src="/js/main.js" defer)
