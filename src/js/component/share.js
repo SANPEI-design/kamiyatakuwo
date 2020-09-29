@@ -12,7 +12,7 @@ class Share {
         navigator.share({
           url: '/',
           title: '名言クイズ「かみやたくを」',
-          text: `${resultImgAlt}！正解率は${resultRate}%でした。あなたは難問解けるかな？ | 名言クイズ「かみやたくを」`
+          text: `${resultImgAlt}！正解率は${resultRate}%でした。あなたは何問解けるかな？ | 名言クイズ「かみやたくを」`
         }).catch((error) => {
           if(error.name === 'NotAllowedError') {
             alert('再読込してからお試しください')
