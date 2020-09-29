@@ -25,29 +25,26 @@
       })(document);
     </script>
   </head>
-  <body></body>
-  <section class="l-page">
-    <div class="answer js-quiz">
-      <h1 class="answer__title--miss"><img class="answer__title-image--miss" src="/img/text_miss.svg" alt="はずれ"></h1>
-      <ul class="answer__list card-list">
-        <li class="card-list__item">
-          <div class="card js-answer"></div>
-        </li>
-        <li class="card-list__item">
-          <div class="card js-answer"></div>
-        </li>
-        <li class="card-list__item">
-          <div class="card js-answer"></div>
-        </li>
-        <li class="card-list__item">
-          <div class="card js-answer"></div>
-        </li>
-      </ul>
-      <div class="answer__button-area button-area--2column">
-        <button class="button js-modal" type="button">正解をみる</button>
-        <button class="button" type="button">やり直す</button>
-      </div>
-    </div>
-  </section>
+  <body data-page="answer"></body>
   <script type="module" src="/js/main.js" defer></script>
 </html>
+<section class="l-page">
+  <div class="answer js-answer">
+    <h1 class="js-answer-title"></h1>
+    <ul class="answer__list card-list">
+      <li class="card-list__item">
+        <div class="card js-choice"></div>
+      </li>
+      <li class="card-list__item">
+        <div class="card js-choice"></div>
+      </li>
+      <li class="card-list__item">
+        <div class="card js-choice"></div>
+      </li>
+      <li class="card-list__item">
+        <div class="card js-choice"></div>
+      </li>
+    </ul>
+    <div class="answer__button-area js-answer-button-area"></div>
+  </div>
+</section>

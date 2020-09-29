@@ -25,28 +25,18 @@
       })(document);
     </script>
   </head>
-  <body></body>
-  <section class="l-page">
-    <div class="answer js-quiz">
-      <h1 class="answer__title--correct"><img class="answer__title-image--correct" src="/img/text_correct.svg" alt="あたり"></h1>
-      <ul class="answer__list card-list">
-        <li class="card-list__item">
-          <div class="card js-answer"></div>
-        </li>
-        <li class="card-list__item">
-          <div class="card js-answer"></div>
-        </li>
-        <li class="card-list__item">
-          <div class="card js-answer"></div>
-        </li>
-        <li class="card-list__item">
-          <div class="card js-answer"></div>
-        </li>
-      </ul>
-      <div class="answer__button-area button-area">
-        <button class="button" type="button">次の問題</button>
-      </div>
-    </div>
-  </section>
+  <body data-page="quiz"></body>
   <script type="module" src="/js/main.js" defer></script>
 </html>
+<section class="l-page">
+  <div class="quiz js-quiz js-question">
+    <p class="quiz__number text-large js-question-number"></p>
+    <h1 class="quiz__title js-question-title"></h1>
+    <ul class="quiz__list card-list">
+      <li class="card-list__item"><a class="card--link js-choice js-choice-answer" href="#"></a></li>
+      <li class="card-list__item"><a class="card--link js-choice js-choice-answer" href="#"></a></li>
+      <li class="card-list__item"><a class="card--link js-choice js-choice-answer" href="#"></a></li>
+      <li class="card-list__item"><a class="card--link js-choice js-choice-answer" href="#"></a></li>
+    </ul>
+  </div>
+</section>

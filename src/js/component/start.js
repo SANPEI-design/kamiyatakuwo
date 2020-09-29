@@ -11,7 +11,7 @@ class Start {
       e.preventDefault()
 
       new QuizExtractor()
-      location.pathname = '/demo/02_quiz.html'
+      location.pathname = '/quiz.html'
     })
   }
 }

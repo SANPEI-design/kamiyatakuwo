@@ -18,13 +18,13 @@ class Next {
 
       // クイズ画面へ遷移
       if(this.count < this.allAnswerList.length) {
-        location.pathname = '/demo/02_quiz.html'
+        location.pathname = '/quiz.html'
         this.increaseCount()
         Session.storeSession('count', this.count)
         }
         // 結果画面へ遷移
         else {
-        location.pathname = '/demo/04_result.html'
+        location.pathname = '/result.html'
       }
     })
   }

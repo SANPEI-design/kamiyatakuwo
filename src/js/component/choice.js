@@ -13,7 +13,7 @@ class Choice {
       const choiceText = this.trigger.querySelector('.js-text').innerText
       
       Session.storeSession('choice', choiceText)
-      location.pathname = '/demo/03_answer.html'      
+      location.pathname = '/answer.html'      
     })
   }
 }

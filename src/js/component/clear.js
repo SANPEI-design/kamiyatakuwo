@@ -9,7 +9,7 @@ class Clear {
       e.preventDefault()
 
       sessionStorage.clear()
-      location.pathname = '/demo/01_top.html'
+      location.pathname = '/'
     })
   }
 }
