@@ -14,11 +14,13 @@
     "watch:webpack": "webpack --config webpack.dev.config",
     "watch:img": "chokidar \"src/img/**/*\" --command \"node imagemin.js\" --initial",
     "delete:dist": "rimraf dist",
+    "delete:docs": "rimraf docs",
     "copy:sitemapxml": "cpx \"src/sitemap.xml\" dist/",
     "copy:robotstxt": "cpx \"src/robots.txt\" dist/",
     "copy:manifestjson": "cpx \"src/manifest.json\" dist/",
     "copy:faviconico": "cpx \"src/favicon.ico\" dist/",
     "copy:apple-touch-iconpng": "cpx \"src/apple-touch-icon.png\" dist/",
+    "copy:dist": "cpx \"dist/**\" docs/",
     "prewatch:all": "run-s delete:dist copy:sitemapxml copy:robotstxt copy:manifestjson copy:faviconico copy:apple-touch-iconpng",
     "watch:all": "run-p watch:pug2html watch:scss2cssprefix watch:webpack watch:img start:server",
     "lint:scss": "stylelint \"**/*.scss\"",
@@ -29,7 +31,8 @@
     "min:css": "cleancss -o dist/css/style.css dist/css/style.css",
     "min:js": "webpack --config webpack.prod.config",
     "delete:map": "rimraf dist/**/*.map",
-    "prepare:all": "run-p min:js min:css delete:map"
+    "prepare:all": "run-p min:js min:css delete:map",
+    "prepare:product": "run-s prepare:all delete:docs copy:dist"
   },
   "keywords": [],
   "author": "",
