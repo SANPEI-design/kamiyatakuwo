@@ -6,7 +6,7 @@ module.exports = {
     index: path.join(__dirname, 'src', 'js', 'index.js')
   },
   output: {
-    path: path.join(__dirname, 'dist', 'js'),
+    path: path.join(__dirname, 'docs', 'js'),
     filename: 'main.js'
   }
 }
