@@ -29,7 +29,7 @@
     "lint:js": "eslint src/js/**/*.js",
     "format:js": "eslint src/js/**/*.js --fix",
     "format:all": "run-p format:scss format:js",
-    "min:css": "cleancss -o dist/css/style.css docs/css/style.css",
+    "min:css": "cleancss -o docs/css/style.css docs/css/style.css",
     "min:js": "webpack --config webpack.prod.config.js",
     "delete:map": "rimraf docs/**/*.map",
     "prepare:all": "run-p min:js min:css delete:map",
