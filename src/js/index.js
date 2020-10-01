@@ -12,97 +12,143 @@ import Clear from './component/clear'
 import Share from './component/share'
 
 
-// 開始
-const START_DOM = document.querySelector('.js-start')
-if(START_DOM !== null) {
-  new Start(START_DOM)
-}
+// 要素生成後にWebフォント処理
+execute()
+
+async function execute() {
+  
+  const html = document.documentElement
+  const visualize = () => {
+    html.classList.remove('is-hidden')
+    html.classList.add('is-visible')
+  }
+  let isHidden
 
 
-// クイズ選択肢
-const QUIZ_DOM = document.querySelector('.js-quiz')
-if(QUIZ_DOM !== null) {
-  new Quiz(QUIZ_DOM)
-}
+  await new Promise((resolve) => {
+
+    // 500ms後にWEBフォントが適用されていなければ強制的に表示
+    setTimeout(() => {
+      isHidden = html.classList.contains('is-hidden')
+      if(isHidden === false) return false
+      visualize()
+    }, 500)
+    
+
+    // 開始
+    const START_DOM = document.querySelector('.js-start')
+    if(START_DOM !== null) {
+      new Start(START_DOM)
+    }
 
 
-// 質問文
-const QUESTION_DOM = document.querySelector('.js-question')
-if(QUESTION_DOM !== null) {
-  new Question(QUESTION_DOM)
-}
+    // クイズ選択肢
+    const QUIZ_DOM = document.querySelector('.js-quiz')
+    if(QUIZ_DOM !== null) {
+      new Quiz(QUIZ_DOM)
+    }
 
 
-// 解答選択
-const CHOICE_DOMS = document.querySelectorAll('.js-choice-answer')
-if(CHOICE_DOMS.length > 0) {
-  CHOICE_DOMS.forEach(dom => {
-    new Choice(dom)
-  })
-}
+    // 質問文
+    const QUESTION_DOM = document.querySelector('.js-question')
+    if(QUESTION_DOM !== null) {
+      new Question(QUESTION_DOM)
+    }
 
 
-// 回答画面
-const ANSWER_DOM = document.querySelector('.js-answer')
-if(ANSWER_DOM !== null) {
-  new Answer(ANSWER_DOM)
-}
+    // 解答選択
+    const CHOICE_DOMS = document.querySelectorAll('.js-choice-answer')
+    if(CHOICE_DOMS.length > 0) {
+      CHOICE_DOMS.forEach(dom => {
+        new Choice(dom)
+      })
+    }
 
 
-// モーダル
-const MODAL_DOM = document.querySelector('.js-modal')
-if(MODAL_DOM !== null) {
-  new Modal(MODAL_DOM)
+    // 回答画面
+    const ANSWER_DOM = document.querySelector('.js-answer')
+    if(ANSWER_DOM !== null) {
+      new Answer(ANSWER_DOM)
+    }
 
-  MODAL_DOM.addEventListener('click', () => {
-    const NEXT_DOM = document.querySelector('.js-next')
-    const MISS_DOM = document.querySelector('.js-miss')
+
+    // モーダル
+    const MODAL_DOM = document.querySelector('.js-modal')
+    if(MODAL_DOM !== null) {
+      new Modal(MODAL_DOM)
+
+      MODAL_DOM.addEventListener('click', () => {
+        const NEXT_DOM = document.querySelector('.js-next')
+        const MISS_DOM = document.querySelector('.js-miss')
+
+        // ページネーション
+        if(NEXT_DOM !== null) {
+          new Next(NEXT_DOM)
+        }
+
+        // ミスのトリガー
+        if(MISS_DOM !== null) {
+          new Miss(MISS_DOM)
+        }
+      }, {
+        once: true
+      })
+    }
+
+
+    // やり直し
+    const REDO_DOM = document.querySelector('.js-redo')
+    if(REDO_DOM !== null) {
+      new Redo(REDO_DOM)
+    }
+
 
     // ページネーション
+    const NEXT_DOM = document.querySelector('.js-next')
     if(NEXT_DOM !== null) {
       new Next(NEXT_DOM)
     }
 
-    // ミスのトリガー
-    if(MISS_DOM !== null) {
-      new Miss(MISS_DOM)
+
+    // 結果
+    const RESULT_DOM = document.querySelector('.js-result')
+    if(RESULT_DOM !== null) {
+      new Result(RESULT_DOM)
     }
-  }, {
-    once: true
+
+
+    // クリア
+    const CLEAR_DOM = document.querySelector('.js-clear')
+    if(CLEAR_DOM !== null) {
+      new Clear(CLEAR_DOM)
+    }
+
+
+    // シェア
+    const SHARE_DOM = document.querySelector('.js-share')
+    if(SHARE_DOM !== null) {
+      new Share(SHARE_DOM)
+    }
+
+    resolve()
   })
-}
 
 
-// やり直し
-const REDO_DOM = document.querySelector('.js-redo')
-if(REDO_DOM !== null) {
-  new Redo(REDO_DOM)
-}
+  await new Promise((resolve) => {
+    try {
+      Typekit.load({
+        active: () => {
+          isHidden = html.classList.contains('is-hidden')
+          if(isHidden === false) return false
+          visualize()
+        }
+      })
+    } catch (error) {
+      isHidden = html.classList.contains('is-hidden')
+      if(isHidden === false) return false
+      visualize()
+    }
 
-
-// ページネーション
-const NEXT_DOM = document.querySelector('.js-next')
-if(NEXT_DOM !== null) {
-  new Next(NEXT_DOM)
-}
-
-
-// 結果
-const RESULT_DOM = document.querySelector('.js-result')
-if(RESULT_DOM !== null) {
-  new Result(RESULT_DOM)
-}
-
-
-// クリア
-const CLEAR_DOM = document.querySelector('.js-clear')
-if(CLEAR_DOM !== null) {
-  new Clear(CLEAR_DOM)
-}
-
-
-// シェア
-const SHARE_DOM = document.querySelector('.js-share')
-if(SHARE_DOM !== null) {
-  new Share(SHARE_DOM)
+    resolve()
+  })
 }

@@ -1,3 +1,11 @@
+.is-hidden {
+  visibility: hidden;
+}
+
+.is-visible {
+  visibility: visible;
+}
+
 .card.is-selected {
   background: #E3D7CA;
   outline: 2px solid #965D5D;
