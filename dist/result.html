@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html class="is-hidden" lang="ja">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -15,32 +15,25 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png"><script>
-      (function(d) {
-        var config = {
-          kitId: 'mxt1jra',
-          scriptTimeout: 3000,
-          async: true
-        },
-        h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-      })(document);
-    </script>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script type="module" src="/js/main.js" defer></script>
+    <script src="https://use.typekit.net/mxt1jra.js" async></script>
   </head>
-  <body data-page="result"></body>
-  <script type="module" src="/js/main.js" defer></script>
-</html>
-<section class="l-page">
-  <div class="result js-result">
-    <div class="result-box">
-      <h1 class="result__title js-result-title"></h1>
-      <div class="result-box__correct-answer-rate-area">
-        <p class="result-box__correct-answer-rate-title text-large">正解率</p>
-        <p class="result-box__correct-answer-rate"><span class="result-box__correct-answer-rate-number js-result-rate"></span><span class="result-box__correct-answer-rate-percent">％</span></p>
+  <body data-page="result">
+    <section class="l-page">
+      <div class="result js-result">
+        <div class="result-box">
+          <h1 class="result__title js-result-title"></h1>
+          <div class="result-box__correct-answer-rate-area">
+            <p class="result-box__correct-answer-rate-title text-large">正解率</p>
+            <p class="result-box__correct-answer-rate"><span class="result-box__correct-answer-rate-number js-result-rate"></span><span class="result-box__correct-answer-rate-percent">％</span></p>
+          </div>
+        </div>
+        <div class="result__button-area button-area--2column">
+          <button class="button js-clear" type="button">ゲームTOP</button>
+          <button class="button js-share" type="button">シェア</button>
+        </div>
       </div>
-    </div>
-    <div class="result__button-area button-area--2column">
-      <button class="button js-clear" type="button">ゲームTOP</button>
-      <button class="button js-share" type="button">シェア</button>
-    </div>
-  </div>
-</section>
+    </section>
+  </body>
+</html>
