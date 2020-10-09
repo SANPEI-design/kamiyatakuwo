@@ -1,6 +1,12 @@
+@import '../tool/_keyframes';
+
 .card.is-selected {
   background: #E3D7CA;
   outline: 2px solid #965D5D;
   outline-offset: -2px;
   box-shadow: none;
+}
+
+.is-fade-in {
+  animation: fadeIn 1s ease-in-out;
 }
