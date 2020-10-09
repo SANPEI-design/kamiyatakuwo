@@ -1,3 +1,4 @@
+import Session from './component/session'
 import Start from './component/start'
 import Quiz from './component/quiz'
 import Question from './component/question'
@@ -10,6 +11,10 @@ import Miss from './component/miss'
 import Result from './component/result'
 import Clear from './component/clear'
 import Share from './component/share'
+
+
+// セッション
+new Session()
 
 
 // 開始
