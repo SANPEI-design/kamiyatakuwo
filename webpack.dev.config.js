@@ -8,11 +8,12 @@ module.exports = {
     ignored: /node_modules/
   },
   entry: {
-    index: ['@babel/polyfill', path.join(__dirname, 'src', 'js', 'index.js')]
+    'js/main': ['@babel/polyfill', path.join(__dirname, 'src', 'js', 'index.js')],
+    'serviceworker': ['@babel/polyfill', path.join(__dirname, 'src', 'serviceworker.js')]
   },
   output: {
-    path: path.join(__dirname, 'dist', 'js'),
-    filename: 'main.js'
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].js'
   },
   module: {
     rules: [
