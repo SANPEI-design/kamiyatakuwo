@@ -1,8 +1,7 @@
 version: '3'
 services:
   app:
-    image: sanpeidesign/node:1.0.0
-    container_name: node
+    image: sanpeidesign/node:1.0.1
     stdin_open: true
     tty: true
     volumes:
